@@ -1,31 +1,87 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-buildscript {
-    ext {
-        kotlin_version = "1.9.0"
-    }
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath "com.android.tools.build:gradle:8.2.0"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.0"
-        classpath "com.google.gms:google-services:4.4.1"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7"
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+android {
+    compileSdk 34 // Updated to a recent SDK version
+
+    defaultConfig {
+        applicationId "com.nanotech.docscan"
+        minSdk 24 // As per requirements
+        targetSdk 34 // Updated to a recent SDK version
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url "https://jitpack.io" }
-    }
-}
+dependencies {
+    implementation 'androidx.core:core-ktx:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+    // Kotlin Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+
+    // ViewModel and LiveData
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.8.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.8.0'
+
+    // Room components
+    implementation 'androidx.room:room-runtime:2.6.1'
+    kapt 'androidx.room:room-compiler:2.6.1'
+    implementation 'androidx.room:room-ktx:2.6.1'
+
+    // CameraX
+    implementation 'androidx.camera:camera-core:1.3.3'
+    implementation 'androidx.camera:camera-camera2:1.3.3'
+    implementation 'androidx.camera:camera-lifecycle:1.3.3'
+    implementation 'androidx.camera:camera-view:1.3.3'
+    implementation 'androidx.camera:camera-extensions:1.3.3'
+
+    // ML Kit Text Recognition
+    implementation 'com.google.mlkit:text-recognition:16.0.0'
+    implementation 'com.google.mlkit:text-recognition-latin:16.0.0'
+
+    // PDF Library (using iText for Android)
+    implementation 'com.itextpdf:itextg:5.5.10'
+
+    // AdMob
+    implementation 'com.google.android.gms:play-services-ads:23.1.0'
+
+    // In-App Purchases
+    implementation 'com.android.billingclient:billing-ktx:6.2.1'
+
+    // Navigation Component
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.7'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
+
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
